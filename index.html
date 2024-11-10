@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Etch-a-Sketch</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            border: 1px solid black;
+            width: 670px;
+            height: 670px;
+            gap: 1px;
+        }
+        .cell {
+            border: 5px solid black;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            flex: auto;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="container"></div>
+    <script>
+        const container = document.querySelector('.container');
+        function createGRid() {
+            for (let i = 0; i < 16; i++) {
+                for (let e = 0; e < 16; e++) {
+                    const cell = document.createElement('div');
+                    container.appendChild(cell).className = "cell";
+                }
+            }
+        }
+        createGRid();
+
+        $('.cell').observe('mouseenter', function(evt){
+            this.setStyle('background-color: yellow');
+        }).observe('mouseleave', function(evt){
+            this.setStyle('background-color: inherit');
+        });
+
+    </script>
 </body>
 </html>
