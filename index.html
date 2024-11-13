@@ -5,46 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
     <style>
+        body {
+            display: flex;
+            background-color: pink;
+            align-items: center;
+            flex-direction: column;
+        }
         .container {
             display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
             border: 1px solid black;
-            width: 670px;
-            height: 670px;
-            gap: 1px;
+            flex-wrap: wrap;
         }
-        .cell {
-            border: 5px solid black;
-            width: 30px;
-            height: 30px;
+        input {
+            width: 200px;
+        }
+        .cells {
+            background-color: white;
             display: flex;
-            flex: auto;
+            flex: 1 1 auto;
+            box-shadow:inset 0px 0px 0px 1px rgb(0, 0, 0);
+        }
+        .btnPos {
+            margin-bottom: 5px;
+        }
+        .pageTitle {
+            margin-bottom: 5px;
+            font-size: xx-large;
         }
     </style>
 </head>
 <body>
+    <div class="pageTitle">Etch-a-Sketch</div>
+    <div class="btnPos">
+        <label for="gridSize">Enter grid size:</label>
+        <input id="gridSize" type="number" min="1" max="100" value="16" placeholder="e.g., 16 for 16x16 grid">
+        <button type="button" onclick="generateGrid()">Generat Grid</button>
+    </div>
+
     <div class="container"></div>
     <script>
-        const container = document.querySelector('.container');
-        function createGRid() {
-            for (let i = 0; i < 16; i++) {
-                for (let e = 0; e < 16; e++) {
-                    const cell = document.createElement('div');
-                    container.appendChild(cell).className = "cell";
+        function generateGrid() {
+            const container = document.querySelector('.container');
+            container.style.width = '1000px';
+            container.style.height = '1000px';
+            const gridSize = document.getElementById('gridSize').value;
+            const cellsNum = gridSize * gridSize;
+
+            container.innerHTML = '';
+
+            const cellsSize = (100 / gridSize);
+        
+        
+            for (let i = 0; i < cellsNum; i++) {
+                const cells = document.createElement('div');
+                cells.className = 'cells';
+                cells.style.width = `${cellsSize}%`;
+                cells.style.height = `${cellsSize}%`;
+
+                container.appendChild(cells);
+
+                cells.addEventListener('mouseover', () => {
+                    cells.style.backgroundColor = getRandomRgb();
+                });
+
+                function getRandomRgb() {
+                let num = Math.round(0xffffff * Math.random());
+                let r = num >> 16;
+                let g = num >> 8 & 255;
+                let b = num & 255;
+                return 'rgb(' + r + ', ' + g + ', ' + b + ')';
                 }
             }
+
         }
-        createGRid();
-
-        $('.cell').observe('mouseenter', function(evt){
-            this.setStyle('background-color: yellow');
-        }).observe('mouseleave', function(evt){
-            this.setStyle('background-color: inherit');
-        });
-
+        generateGrid();
     </script>
 </body>
 </html>
