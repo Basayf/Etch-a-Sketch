@@ -7,7 +7,7 @@
     <style>
         body {
             display: flex;
-            background-color: pink;
+            background-color: rgb(255, 255, 255);
             align-items: center;
             flex-direction: column;
         }
@@ -63,21 +63,21 @@
                 cells.style.height = `${cellsSize}%`;
 
                 container.appendChild(cells);
+                
 
                 cells.addEventListener('mouseover', () => {
                     cells.style.backgroundColor = getRandomRgb();
                 });
-
-                function getRandomRgb() {
-                let num = Math.round(0xffffff * Math.random());
-                let r = num >> 16;
-                let g = num >> 8 & 255;
-                let b = num & 255;
-                return 'rgb(' + r + ', ' + g + ', ' + b + ')';
-                }
-            }
-
+            }           
         }
+
+        function getRandomRgb() {
+            let num = Math.round(0xffffff * Math.random());
+            let r = num >> 16;
+            let g = num >> 8 & 255;
+            let b = num & 255;
+            return 'rgb(' + r + ', ' + g + ', ' + b + ')';
+            }
         generateGrid();
     </script>
 </body>
